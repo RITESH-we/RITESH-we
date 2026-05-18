@@ -1,6 +1,5 @@
-Here is the complete, themed `README.md` code consolidated into a single copy-pasteable block. You can grab everything inside this block and paste it directly into your GitHub repository.
 
-```markdown
+
 <div align="center">
   <h1 style="font-family: monospace;">❯ RITESH_PAUL<span style="color: gray;">.exe</span></h1>
   <p><code>SOC Operations</code> · <code>Threat Intelligence</code> · <code>Incident Response</code></p>
