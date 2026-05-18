@@ -1,5 +1,3 @@
-
-
 <div align="center">
   <h1 style="font-family: monospace;">❯ RITESH_PAUL<span style="color: gray;">.exe</span></h1>
   <p><code>SOC Operations</code> · <code>Threat Intelligence</code> · <code>Incident Response</code></p>
@@ -21,8 +19,8 @@ ARCSIGHT:       PROFICIENT       DEGREE:   B.TECH CSE
 SURICATA IDS:   PROFICIENT       STREAM:   CYBERSECURITY
 MITRE ATT&CK:   PROFICIENT       GRAD:     JUL 2027
 PYTHON 3.11:    PROFICIENT       BASE:     BANGALORE
-REDIS STREAMS:  PROFICIENT
-SPLUNK:         FAMILIAR
+SPLUNK:         FAMILIAR         
+REDIS STREAMS:  FAMILIAR
 
 ```
 
