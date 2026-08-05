@@ -1,4 +1,4 @@
-# Ritesh Paul — Cybersecurity Analyst
+# Ritesh Paul —SOC Analyst
 
 ```
 ❯ whoami
