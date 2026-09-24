@@ -1,31 +1,60 @@
-# Ritesh Paul —SOC Analyst
+# Ritesh Paul — Cybersecurity & SOC Analyst
 
 ```
 ❯ whoami
-  role      →  SOC Operations · Incident Response · Threat Intelligence · SIEM
-  status    →  ● available for internships & SOC roles
+  role      →  SOC Operations · Threat Detection · Incident Response · Malware Analysis
+  status    →  ● Final-Year B.Tech Student (Graduating 2027) · Seeking Entry-Level SOC Analyst Roles
+  creds     →  ISC2 Candidate · OPSWAT CIP · Cisco CCNA
   location  →  Bangalore, India
 ```
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-riteshpaul262-4fc3c8?style=flat-square&logo=linkedin&logoColor=white&labelColor=161d27)](https://linkedin.com/in/riteshpaul262)
 [![Email](https://img.shields.io/badge/Email-riteshpaul262@gmail.com-4fc3c8?style=flat-square&logo=gmail&logoColor=white&labelColor=161d27)](mailto:riteshpaul262@gmail.com)
 [![GitHub](https://img.shields.io/badge/GitHub-RITESH--we-4fc3c8?style=flat-square&logo=github&logoColor=white&labelColor=161d27)](https://github.com/RITESH-we)
-![Status](https://img.shields.io/badge/status-available-2d8f94?style=flat-square&labelColor=161d27)
-![Grad](https://img.shields.io/badge/grad-Jul_2027-5a7a90?style=flat-square&labelColor=161d27)
+![Status](https://img.shields.io/badge/status-available_for_hire-2d8f94?style=flat-square&labelColor=161d27)
+![Graduation](https://img.shields.io/badge/grad-Jul_2027-5a7a90?style=flat-square&labelColor=161d27)
 
 ---
 
-B.Tech Cybersecurity student (graduating 2027) with hands-on SOC internship experience in a **live government Security Operations Center**, triaging **50+ alerts daily** using ArcSight SIEM. I build systems, not just learn tools.
+Final-year Cybersecurity & Cyber Defense undergraduate and **ISC2 Candidate** with hands-on government CSOC experience in a **live Security Operations Center (ArcSight SIEM)**, triaging **50+ live alerts daily**. Actively engineering an automated malware analysis platform for B.Tech Capstone and developing cloud-native detection engines.
 
 ---
 
-## // Major Project — Location-Based Threat Intelligence Alert System
+## 🚀 Featured Engineering & Security Projects
 
-> Distributed, multi-VM SOC pipeline · Detection to dashboard in **3–5 seconds** · 5 Azure VMs · Team of 5
+### 1. [Automated Malware Analysis Platform](https://github.com/RITESH-we/Malware-Analysis) `B.Tech Capstone Project` `Ongoing`
 
-### Pipeline Architecture
+> Python · Docker · YARA · Mandiant capa · pefile · ssdeep · Shannon Entropy
 
+An automated, containerized pipeline for safe static and dynamic analysis of Windows PE malware samples without premature sample detonation.
+
+```text
+  MALWARE SAMPLE (.EXE / DLL)
+               │
+               ▼
+┌────────────────────────────────────────────────────────┐
+│  Phase 1: Containerized Static Analysis Engine         │
+│  • PE Header & Section Parser (pefile)                 │
+│  • Shannon Entropy Calculation (File & Section Level)  │
+│  • Fuzzy Hashing via ssdeep (Sample Similarity)        │
+│  • Mandiant capa Integration (Capability Mapping)      │
+│  • Multi-Rule YARA Scanner (Signature Matching)        │
+│  • IOC Regular Expression Extractor (IPs, URLs, C2)    │
+└───────────────────────────┬────────────────────────────┘
+                            │
+                            ▼
+               [ Schema-Validated JSON Report ]
 ```
+
+* **My Focus:** Author of the Static Analyzer module. Implemented PE structure parsing, per-section entropy detection for packed/encrypted payloads, fuzzy hashing for variant clustering, and unified JSON contract schema validation.
+
+---
+
+### 2. [Location-Based Threat Intelligence Alert System](https://github.com/RITESH-we/LBTI-Location-Based-Threat-Intelligence-Alert-System-) `Major Project` `Sri Sri University`
+
+> Distributed Multi-VM SOC Pipeline · Detection to Dashboard in **3–5 seconds** · Microsoft Azure · Team of 5
+
+```text
 ┌────────────┐     ┌─────────────────────────────┐     ┌──────────────────────┐
 │  VM-7      │────▶│  VM-1  ★ MY LAYER           │────▶│  VM-2                │
 │  Attacker  │     │  Suricata IDS + Filebeat     │     │  Redis + TI Fetcher  │
@@ -33,7 +62,7 @@ B.Tech Cybersecurity student (graduating 2027) with hands-on SOC internship expe
                                                                    │
                                                      ┌─────────────▼───────────┐
                                                      │  VM-3                   │
-                                                     │  Normaliser → Enricher  │
+                                                     │  Normalizer → Enricher  │
                                                      │  → Correlator           │
                                                      └─────────────┬───────────┘
                                                                    │
@@ -48,288 +77,147 @@ B.Tech Cybersecurity student (graduating 2027) with hands-on SOC internship expe
                                                      └─────────────────────────┘
 ```
 
-### My Contribution — VM-1 (Sensor Layer)
-
+#### My Contribution — VM-1 (Sensor Layer)
 ```
-[✓]  Deployed Suricata IDS with AF-PACKET capture and EVE JSON logging
-[✓]  Wrote all 15 custom detection rules covering OWASP Top 10
-       SQLi · XSS · Directory Traversal · Brute Force · Port Scan
-       Signature-based + threshold-based detection logic
-[✓]  Configured Filebeat for resilient log shipping to VM-2 Redis
-       Cursor persistence → zero event loss on restart
-       Sensor metadata enrichment → sensor_id, sensor_location
-[✓]  Deployed OWASP Juice Shop as attack target
-[✓]  Validated all 15 rules across 13 real attack scenarios
-```
-
-### Key Technical Decisions
-
-| Decision | Implementation | Why It Matters |
-|---|---|---|
-| **Event-driven microservices** | Redis Streams + Consumer Groups; 5 Python services | At-least-once delivery; services fail independently |
-| **3-source TI correlation** | Cache-first batch — VirusTotal, AbuseIPDB, AlienVault OTX | Stays within free API rate limits; O(1) enrichment |
-| **Geospatial storage** | PostGIS `GEOGRAPHY(Point, 4326)` + GIST index | Real spherical-earth queries; spatial analytics without a commercial SIEM |
-| **Custom IDS ruleset** | 15 Suricata rules — signature + threshold — OWASP Top 10 | Brute force & port scan need threshold rules; signatures alone miss them |
-| **Alert lifecycle mgmt** | Acknowledge / Resolve + full `audit_log` table | PCI-DSS / ISO 27001 compliant; mirrors real SOC workflows |
-
-### Risk Scoring Algorithm — 0 to 100 composite
-
-```
-  Suricata severity × 10          →  +10 to +30   baseline
-  AbuseIPDB confidence ÷ 10       →  +0  to +10
-  Destination IP in TI feeds      →  +20
-  Persistent attacker (5-min win) →  +5  per event
-  External source (not in CMDB)   →  +15
-  Target is datacenter infra      →  +20
-                                     ──────────────
-                                     max  ≈  100
-```
-
-### Validated Attack Scenarios
-
-`SQL Injection` `XSS` `Directory Traversal` `PHP Webshell Upload` `HTTP Brute Force` `Port Scan` `Connection Flood`  
-All traversing the full 5-VM pipeline → correct severity + risk scores in analyst dashboard.
-
-### Stack
-
-`Suricata 7.0` `Filebeat 8.11` `Redis 7 Streams` `Python 3.11` `PostgreSQL 16` `PostGIS 3.4` `FastAPI` `React 18` `Leaflet.js` `Microsoft Azure` `MITRE ATT&CK` `OWASP Top 10`
-
----
-
-## // Experience
-
-**SOC Analyst Intern** — OCAC Tower CSOC · Government of Odisha · Bhubaneswar
-`Feb 2026 – Mar 2026` · 45-day live government SOC engagement
-
-```
-→  Monitored and triaged 50+ live security alerts daily using ArcSight SIEM
-→  Investigated confirmed brute force attack (MITRE ATT&CK T1110)
-     Log analysis · IOC enrichment via VirusTotal & AbuseIPDB
-     ITMS ticketing · escalation under senior analyst guidance
-→  Hands-on exposure to real SOC workflows, alert prioritisation,
-   and TTP-based escalation in a high-stakes government environment
+[✓] Deployed Suricata IDS with AF-PACKET capture and structured EVE JSON logging
+[✓] Authored 15+ custom detection rules covering OWASP Top 10 (SQLi, XSS, Directory Traversal, Brute Force)
+[✓] Configured Filebeat for resilient log shipping to VM-2 Redis with cursor persistence
+[✓] Deployed OWASP Juice Shop as the vulnerable attack target for signature validation
+[✓] Achieved 3–5 second end-to-end alert propagation across all 5 Azure VMs
 ```
 
 ---
 
-**Cybersecurity Intern** — EDUNET Foundation · Remote
-`May 2025 – Jun 2025`
+### 3. [MiniSOC v2.2 Enterprise — Cloud-Native SIEM & UEBA](https://github.com/RITESH-we/mini-soc) `Personal Project` `Ongoing`
 
-```
-→  Built a steganography-based data-hiding system
-     AES-256 encryption + LSB steganography → covert embed in PNG/JPG
-→  Analysed detectability and extraction risks
-     Explored covert channel gaps and forensic countermeasures
-```
+> Python 3.11 · Docker · MITRE ATT&CK v14 · OCSF / ECS Schema · UEBA Engine
 
----
+An open-schema SIEM/XDR platform synthesizing architectural advantages from enterprise platforms (Splunk, Microsoft Sentinel, IBM QRadar) into a lightweight Python detection engine.
 
-**Cybersecurity Intern** — ACMEGRADE · Remote
-`Jan 2024 – Mar 2024`
-
-```
-→  Nmap-based network reconnaissance and vulnerability assessment
-→  Documented findings in structured vulnerability reports
-```
+* **Log Normalization:** Normalizes raw events to OCSF/ECS compliant schemas with watermark deduplication.
+* **Threat Intel Hub:** Automated IOC reputation lookups against VirusTotal, AbuseIPDB, and AlienVault OTX REST APIs.
+* **Behavioral UEBA Engine:** Real-time host and user risk scoring with automated 1-click active response playbooks (firewall rule drops, malicious process kill).
 
 ---
 
-## // Other Projects
+### 4. [Oil & Gas OT/IT Network Security Architecture](https://github.com/RITESH-we/oil-and-gas-network) `Minor Project` `Sri Sri University`
 
----
+> Cisco Packet Tracer · Purdue Model (IEC 62443) · Layer 3 Inter-VLAN Routing · Firewall ACLs
 
-### Project 2 — Oil & Gas Network Security Architecture
+Designed a **resilient, five-zone industrial network architecture** in Cisco Packet Tracer based on the **Purdue Model (IEC 62443)** to isolate critical Operational Technology (OT) and SCADA systems from corporate IT.
 
-> Sri Sri University · Team of 5 · Guided by Dr. Tishya Manna & Ms. Ishita Kosambia (Cyber Dojo) · Cisco Packet Tracer
-
-Designed a **resilient, five-zone network architecture** for a simulated oil and gas company connecting headquarters, refineries, and remote exploration sites — prioritising layered OT/IT segmentation and protection of critical industrial control systems from cyber threats.
-
-### Network Zone Architecture
-
-```
-  INTERNET
-      │
-  ┌───▼──────────────────────────────────────────────────────┐
-  │  DMZ ZONE                                                │
-  │  Web Server · Email · DNS · FTP                          │
-  │  WAF → IDPS → Dual Firewalls                             │
-  └───┬──────────────────────────────────────────────────────┘
-      │  (zone firewall)
-  ┌───▼──────────────────────────────────────────────────────┐
-  │  ENTERPRISE ZONE                                         │
-  │  Finance VLAN · HR VLAN · IT VLAN · Marketing VLAN       │
-  │  ACLs + RBAC per department segment                      │
-  └───┬──────────────────────────────────────────────────────┘
-      │  (highly secure link)
-  ┌───▼──────────────────────────────────────────────────────┐
-  │  CONTROL ZONE  ← ICS Environment                        │
-  │  SCADA Server · HMI Server · Historian DB                │
-  │  Industrial Control Server                               │
-  └───┬──────────────────────────────────────────────────────┘
-      │  (sub-segmented OT links)
-  ┌───▼──────────────────────────────────────────────────────┐
-  │  FIELD ZONE  ← Remote OT Devices                        │
-  │  PLCs · Pressure/Temp/Flow/Gas Sensors · Actuators       │
-  │  VSAT links for offshore/remote sites                    │
-  └──────────────────────────────────────────────────────────┘
-
-  ┌──────────────────────────────────────────────────────────┐
-  │  SECURE OPS ZONE  ← Central SOC                         │
-  │  SIEM · SCADA Server · NMS · Jump Server                 │
-  │  Data Historian · Backup & Recovery                      │
+```text
+  [ INTERNET ]
+       │
+  ┌────▼─────────────────────────────────────────────────────┐
+  │  DMZ (VLAN 50)                                           │
+  │  Web Server · Email · DNS · FTP · Reverse Proxy          │
+  └────┬─────────────────────────────────────────────────────┘
+       │  (Firewall ACLs)
+  ┌────▼─────────────────────────────────────────────────────┐
+  │  ENTERPRISE ZONE (VLAN 30)                               │
+  │  Corporate Workstations · Finance · HR · IT Marketing    │
+  └────┬─────────────────────────────────────────────────────┘
+       │  (Layer 3 Inter-VLAN Routing)
+  ┌────▼─────────────────────────────────────────────────────┐
+  │  SECURE OPERATIONS CENTER (VLAN 10)                      │
+  │  SIEM · SCADA Server · NMS · Jump Host · Data Historian  │
+  └────┬─────────────────────────────────────────────────────┘
+       │  (Enforced Jump Server Protocol)
+  ┌────▼─────────────────────────────────────────────────────┐
+  │  CONTROL ZONE (VLAN 20)                                  │
+  │  HMIs · Engineering Workstations · Control Servers       │
+  └────┬─────────────────────────────────────────────────────┘
+       │  (OT Protocols / Modbus)
+  ┌────▼─────────────────────────────────────────────────────┐
+  │  FIELD ZONE (VLAN 40)                                    │
+  │  PLCs · Sensors (Pressure, Temp, Flow, Gas) · Actuators  │
   └──────────────────────────────────────────────────────────┘
 ```
 
-### Key Design Decisions
+---
 
-| Decision | What Was Built | Why It Matters |
+### 5. [Dual-Layer Image Steganography System](https://github.com/RITESH-we/STEGNO) `EDUNET Internship Project`
+
+> Python · AES-256-CBC · OpenCV · Spatial LSB Pixel Embedding · Steganalysis Defense
+
+A two-tier covert communications tool combining **military-grade AES-256-CBC encryption** with **spatial-domain pixel steganography** to hide confidential data inside lossless PNG images without introducing visual distortion.
+
+```
+  Plaintext ──▶ [ AES-256-CBC Encryption ] ──▶ [ LSB Pixel Embedding ] ──▶ Stego Image (PNG)
+```
+* **Security Resilience:** Ciphertext Shannon entropy (~7.99 bits/byte) resists visual inspection and statistical Chi-Square steganalysis tests. Includes standalone CLI (`stego.py`) and research notebook.
+
+---
+
+## 💼 Operational Work Experience
+
+**SOC Analyst Intern** — OCAC Tower CSOC · Government of Odisha · Bhubaneswar  
+*Feb 2026 – Mar 2026* · 45-day live government Security Operations Center engagement
+```
+→ Monitored and triaged 50+ live security alerts daily using ArcSight SIEM
+→ Investigated confirmed true-positive brute force attack (MITRE ATT&CK T1110)
+    Log analysis · IOC enrichment via VirusTotal & AbuseIPDB · ITSM ticketing
+→ Executed operational SOC procedures: shift handoffs, alert prioritization, and escalation runbooks
+```
+
+**Cybersecurity Intern** — EDUNET Foundation · Remote  
+*May 2025 – Jun 2025*
+```
+→ Built a dual-layer data confidentiality system combining AES-256 with LSB steganography
+→ Evaluated payload detectability and extraction risks against basic steganalysis tools
+```
+
+**Cybersecurity Intern** — ACMEGRADE · Remote  
+*Jan 2024 – Mar 2024*
+```
+→ Conducted Nmap network reconnaissance and vulnerability assessments across simulated subnets
+→ Documented attack vectors and remediation recommendations in structured reports
+```
+
+---
+
+## 🛠️ Core Skills & Technologies
+
+```
+SIEM & Detection     →  ArcSight SIEM · Splunk · Suricata IDS · Filebeat · Redis · OCSF/ECS Schema
+Threat Intelligence  →  VirusTotal · AbuseIPDB · AlienVault OTX · IOC Analysis · MITRE ATT&CK v14
+Incident Response    →  Alert Triage · True-Positive Analysis · Escalation Workflows · ITSM Ticketing
+Malware Analysis     →  Static Analysis · PE Parsing (pefile) · YARA Rules · Mandiant capa · ssdeep
+Network Security     →  Purdue Model (IEC 62443) · Cisco Packet Tracer · Firewall ACLs · VLANs · Nmap
+Cloud & Systems      →  Microsoft Azure (VMs, NSGs) · Docker · Linux (Kali, Ubuntu) · Python 3.11
+Cryptography         →  AES-256 (CBC/GCM) · LSB Steganography · SHA-256 · PKCS7 Padding
+```
+
+---
+
+## 📜 Verified Credentials & Certifications
+
+| Certification / Credential | Issuing Organization | Status / Date |
 |---|---|---|
-| **Distributed firewalls** | Firewall at every zone boundary | Eliminates single point of failure vs centralised appliances |
-| **VLAN + ACL + RBAC** | OT device isolation — PLCs, SCADA segmented by role | Prevents lateral movement from IT compromise into OT |
-| **Dual-path failover** | Fiber-optic backbone + OSPF/BGP dynamic routing | Zero-downtime resilience; auto-reroute on link failure |
-| **VSAT connectivity** | Satellite links for remote & offshore field sites | Continued comms even when terrestrial links go down |
-| **IPSec VPNs** | Encrypted tunnels for all inter-site communication | Secure channel over untrusted WAN/internet segments |
-| **Edge computing** | Local processing at remote sites | Continued operation during HQ disconnection |
-| **Standards alignment** | IEC 62443 + NIST Cybersecurity Framework throughout | Industry-compliant OT security posture from design stage |
-
-### What Was Validated
-
-```
-[✓]  Intra-zone connectivity — all VLANs communicating correctly within zones
-[✓]  VLAN segmentation — Finance / HR / IT / Marketing isolated as designed
-[✗]  Inter-zone ACL complexity — documented as known challenge for future refinement
-       (full cross-zone rule enforcement exceeded Packet Tracer simulation scope)
-```
-
-### Stack
-
-`Cisco Packet Tracer` `VLAN / OSPF / BGP` `SCADA / HMI` `IDS / IPS` `IPSec VPN` `VSAT` `IEC 62443` `NIST CSF`
+| **ISC2 Candidate** | **ISC2** | **Active Credential** |
+| **CCNA: Introduction to Networks** | Cisco Networking Academy | Jun 2024 |
+| **Introduction to ICS/SCADA (CIP)** | OPSWAT Academy | Jan 2026 |
+| **Foundations of Cybersecurity** | Google Career Certificates | Nov 2022 |
+| **Fundamentals of Red Hat Enterprise Linux** | Red Hat | Dec 2023 |
+| **McKinsey Forward Program** | McKinsey & Company | 2026 |
+| **Cybersecurity Job Simulations** | Tata & Mastercard (Forage) | 2025 |
 
 ---
 
-### Project 3 — Covert Data Hiding System (AES + Steganography)
-
-> EDUNET Foundation Internship · May–Jun 2025 · Remote
-
-Built a **steganography-based data-hiding system** that combines AES-256 encryption with LSB (Least Significant Bit) steganography to covertly embed secret data inside ordinary PNG/JPG image files — making the payload invisible to the naked eye and undetectable without the key.
-
-### How It Works
-
-```
-  SENDER SIDE
-  ┌──────────────┐     ┌───────────────────┐     ┌──────────────────────┐
-  │  Plaintext   │────▶│  AES-256          │────▶│  LSB Steganography   │
-  │  Secret Data │     │  Encryption Layer │     │  Embed into PNG/JPG  │
-  └──────────────┘     └───────────────────┘     └──────────┬───────────┘
-                                                             │
-                                                   ┌─────────▼──────────┐
-                                                   │  Carrier Image     │
-                                                   │  (looks normal)    │
-                                                   └─────────┬──────────┘
-  RECEIVER SIDE                                              │
-  ┌──────────────┐     ┌───────────────────┐                │
-  │  Recovered   │◀────│  AES-256          │◀───────────────┘
-  │  Plaintext   │     │  Decryption Layer │  LSB extraction
-  └──────────────┘     └───────────────────┘
-```
-
-### Key Technical Decisions
-
-| Decision | What Was Built | Why It Matters |
-|---|---|---|
-| **AES-256 first, then embed** | Encrypt plaintext → embed ciphertext into image pixels | Even if stego is detected, data is still encrypted — two layers of protection |
-| **LSB steganography** | Overwrite least significant bits of RGB pixel channels | Pixel value change is ±1 — visually imperceptible to human eye |
-| **PNG preferred over JPG** | Lossless PNG retains exact pixel values | JPG compression destroys LSB bits and corrupts hidden data |
-| **Capacity analysis** | Calculated max payload per image resolution | Prevents overflow; ensures embedding doesn't introduce visible artifacts |
-
-### Security Analysis Performed
-
-```
-[✓]  Detectability testing — visual inspection passes; histogram analysis documented
-[✓]  Extraction risk analysis — what an attacker needs to recover data (key + algorithm)
-[✓]  Covert channel threat model — how this technique is used in real-world attacks
-[✓]  Forensic countermeasures — steganalysis tools that can statistically detect LSB embedding
-[✓]  Format constraints — why lossy formats (JPG) break LSB and lossless (PNG) is required
-```
-
-### Stack
-
-`Python 3` `AES-256 (PyCryptodome)` `LSB Steganography` `Pillow (PIL)` `Cryptography` `PNG / JPG`
-
----
-
-### Project 4 — AI-Driven Firewall (Concept)
-
-> Proposed Architecture · Security Engineering
-
-```
-  NETWORK TRAFFIC
-        │
-  ┌─────▼──────────────────────────────────┐
-  │  ML Behavioural Anomaly Detection      │
-  │  Baseline normal traffic → flag deltas │
-  └─────┬──────────────────────────────────┘
-        │
-  ┌─────▼──────────────────────────────────┐
-  │  Real-Time Threat Classification       │
-  │  Known signatures + zero-day heuristics│
-  └─────┬──────────────────────────────────┘
-        │
-  ┌─────▼──────────────────────────────────┐
-  │  Automated Response Engine             │
-  │  Block · Throttle · Alert · Quarantine │
-  └─────┬──────────────────────────────────┘
-        │
-  ┌─────▼──────────────────────────────────┐
-  │  CVE Feed Integration                  │
-  │  Auto-update firewall rules on new CVEs│
-  └────────────────────────────────────────┘
-```
-
-Proposed an AI-integrated firewall using ML-based behavioural anomaly detection for real-time traffic analysis, automated threat response, and CVE-based rule auto-updates — moving firewall management from reactive signature matching to proactive behavioural defence.
-
----
-
-## // Skills
-
-```
-SIEM & Detection     →  ArcSight · Splunk (familiar) · Suricata IDS · Filebeat · Redis
-Threat Intelligence  →  VirusTotal · AbuseIPDB · AlienVault OTX · IOC Analysis · MITRE ATT&CK
-Incident Response    →  Alert Triage · Log Analysis · Escalation Workflows · ITMS Ticketing
-Network Security     →  Firewall Design · VLAN · DMZ · Nmap · Cisco Packet Tracer
-Cloud & Infra        →  Microsoft Azure · AWS EC2/S3 (learning) · Python 3.11
-Security Concepts    →  AES-256 · LSB Steganography · Vulnerability Analysis · OWASP Top 10
-Operating Systems    →  Kali Linux · Ubuntu
-```
-
----
-
-## // Credentials
-
-| Certification | Issuer | Date |
-|---|---|---|
-| CCNA: Introduction to Networks | Cisco | Jun 2024 |
-| Introduction to CIP | OPSWAT Academy | Jan 2026 |
-| Tata Cybersecurity Analyst Simulation | Forage | Jul 2025 |
-| Mastercard Cybersecurity Simulation | Forage | Jan 2025 |
-| Foundations of Cybersecurity | Google | Nov 2023 |
-| Fundamentals of Red Hat Enterprise Linux | Red Hat | Dec 2023 |
-
----
-
-## // Education
+## 🎓 Education
 
 ```
 B.Tech — CSE (Cybersecurity & Cyber Defense)
 Sri Sri University · Cuttack, Odisha · Expected Jul 2027
 
-Higher Secondary · Class XII — Science
+Higher Secondary · Class XII — Science (PCMCS)
 Kendriya Vidyalaya AFS Yelahanka · Bangalore · 2023
 ```
 
 ---
 
-## // Contact
+## 📬 Contact & Connect
 
 ```
 ❯ ssh ritesh@bangalore
@@ -341,4 +229,4 @@ Kendriya Vidyalaya AFS Yelahanka · Bangalore · 2023
   location  →  Bangalore, India
 ```
 
-*Open to SOC Analyst internships and entry-level cybersecurity roles.*
+*Final-year student actively seeking entry-level SOC Analyst (L1), Incident Response, or Threat Detection opportunities.*
